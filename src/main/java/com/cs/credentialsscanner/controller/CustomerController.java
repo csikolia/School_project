@@ -31,4 +31,11 @@ public class CustomerController {
 
     return new ResponseEntity<>(customerService.createCustomer(request), HttpStatus.OK);
   }
+
+
+  @GetMapping("/generate")
+  public ResponseEntity<?> generate() {
+     customerService.generate();
+     return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

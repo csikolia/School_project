@@ -2,6 +2,7 @@ package com.cs.credentialsscanner.service;
 
 import com.cs.credentialsscanner.entity.Customer;
 import com.cs.credentialsscanner.repo.CustomerRepo;
+import com.github.javafaker.Faker;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
   private final CustomerRepo customerRepo;
+  private final Faker faker = new Faker();
 
 
   public List<Customer> getCustomers() {
@@ -37,5 +39,18 @@ public class CustomerService {
 
     customerRepo.save(customer);
     return "Created";
+  }
+
+  public void generate(){
+
+    for(int i=0; i <100; i++){
+      faker.phoneNumber().subscriberNumber(10);
+      String phone = faker.phoneNumber().phoneNumber();
+      String name = faker.name().fullName();
+      String cardNumber = faker.finance().creditCard();
+
+      log.info("Loading details {} {} {}", name, phone, cardNumber);
+    }
+
   }
 }
